@@ -3,6 +3,8 @@ import styles from './App.module.css'
 import Cursor from './Cursor'
 import LoadingScreen from './LoadingScreen'
 
+const APPS_SCRIPT_URL = import.meta.env.VITE_APPS_SCRIPT_URL
+
 /* ─────────────────────────────────────────
    EMBER PARTICLES
 ───────────────────────────────────────── */
@@ -120,14 +122,44 @@ function MagneticBtn({ children, className, ...props }) {
 function Form() {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState('idle')
+  const [errorMsg, setErrorMsg] = useState('')
   const [count] = useState(4281)
 
   async function handleSubmit(e) {
     e.preventDefault()
-    if (!email.includes('@') || !email.includes('.')) { setStatus('error'); return }
+    if (!email.includes('@') || !email.includes('.')) {
+      setErrorMsg('Enter a valid email address.')
+      setStatus('error')
+      return
+    }
+    
     setStatus('loading')
-    await new Promise(r => setTimeout(r, 1400))
-    setStatus('success')
+
+    if (!APPS_SCRIPT_URL) {
+      console.warn('[Waitlist] VITE_APPS_SCRIPT_URL environment variable is not defined. Simulating submission...')
+      await new Promise(r => setTimeout(r, 1400))
+      setStatus('success')
+      return
+    }
+
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8',
+        },
+        body: JSON.stringify({ email }),
+      })
+
+      // In 'no-cors' mode, the response is opaque, meaning we cannot read status codes or body.
+      // If the fetch call completes without throwing a network error, the request successfully reached Google's servers.
+      setStatus('success')
+    } catch (error) {
+      console.error('[Waitlist] Network error during submission:', error)
+      setErrorMsg('Failed to submit. Please check your connection.')
+      setStatus('error')
+    }
   }
 
   if (status === 'success') {
@@ -169,7 +201,7 @@ function Form() {
           aria-invalid={status === 'error'}
         />
       </div>
-      {status === 'error' && <p className={styles.errMsg} role="alert">Enter a valid email address.</p>}
+      {status === 'error' && <p className={styles.errMsg} role="alert">{errorMsg}</p>}
       <MagneticBtn type="submit" id="join-waitlist-btn" className={styles.btn} disabled={status === 'loading'}>
         {status === 'loading'
           ? <span className={styles.spinner} />
