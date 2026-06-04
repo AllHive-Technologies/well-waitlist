@@ -1,0 +1,81 @@
+/* All cursor elements are fixed and pointer-events:none */
+.dot,
+.ring,
+.trail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  border-radius: 50%;
+  z-index: 99999;
+  will-change: transform;
+  /* Center the element on the cursor point */
+  margin-left: -4px;
+  margin-top: -4px;
+}
+
+/* ── Dot ── */
+.dot {
+  width: 8px;
+  height: 8px;
+  background: #f5a623;
+  box-shadow: 0 0 8px rgba(245,166,35,0.9), 0 0 16px rgba(245,166,35,0.4);
+  transition: width 200ms ease, height 200ms ease, background 200ms ease, box-shadow 200ms ease;
+}
+
+.dotHover {
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(255,255,255,0.9);
+}
+
+.dotClick {
+  width: 4px;
+  height: 4px;
+  background: #ffcc55;
+  box-shadow: 0 0 20px rgba(255,200,80,1), 0 0 40px rgba(245,166,35,0.7);
+}
+
+/* ── Ring ── */
+.ring {
+  width: 36px;
+  height: 36px;
+  margin-left: -18px;
+  margin-top: -18px;
+  border: 1.5px solid rgba(245, 166, 35, 0.5);
+  background: transparent;
+  transition: width 300ms cubic-bezier(0.34,1.56,0.64,1),
+              height 300ms cubic-bezier(0.34,1.56,0.64,1),
+              border-color 300ms ease,
+              background 300ms ease,
+              margin 300ms cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.ringHover {
+  width: 56px;
+  height: 56px;
+  margin-left: -28px;
+  margin-top: -28px;
+  border-color: rgba(245, 166, 35, 0.8);
+  background: rgba(245, 166, 35, 0.06);
+}
+
+.ringClick {
+  width: 70px;
+  height: 70px;
+  margin-left: -35px;
+  margin-top: -35px;
+  border-color: rgba(245, 166, 35, 0.2);
+  background: rgba(245, 166, 35, 0.03);
+}
+
+/* ── Trail ── */
+.trail {
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  margin-top: -3px;
+  background: #f5a623;
+  opacity: 0.2;
+}

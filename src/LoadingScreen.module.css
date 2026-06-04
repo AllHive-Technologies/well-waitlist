@@ -1,0 +1,187 @@
+/* ── SCREEN ── */
+.screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #0a0a0a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: opacity 0.6s ease;
+}
+
+.screen.exit {
+  pointer-events: none;
+}
+
+/* ── CURTAIN — slides up on exit ── */
+.curtain {
+  position: absolute;
+  inset: 0;
+  background: #0a0a0a;
+  transform: translateY(0);
+  transition: transform 0.75s cubic-bezier(0.76, 0, 0.24, 1);
+  z-index: 2;
+}
+
+.curtainUp {
+  transform: translateY(-100%);
+}
+
+/* ── CENTER ── */
+.center {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* ── SHIELD ── */
+.shield {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.6) translateY(10px);
+  transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1);
+  margin-bottom: 1rem;
+}
+
+.shield.visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.shieldPath {
+  filter: drop-shadow(0 0 12px rgba(245,166,35,0.5));
+}
+
+.shieldGlow {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245,166,35,0.3) 0%, transparent 70%);
+  filter: blur(16px);
+  transform: scale(0);
+  transition: transform 0.8s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.shieldGlowActive {
+  transform: scale(1);
+}
+
+/* ── WORDMARK ── */
+.wordmark {
+  display: flex;
+  gap: 0.15em;
+  margin-bottom: 2.5rem;
+}
+
+.letter {
+  font-family: 'Inter', sans-serif;
+  font-size: 2.25rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  color: #f5a623;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1);
+  display: inline-block;
+}
+
+.wordmarkVisible .letter {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── LOAD ORB ── */
+.loadOrb {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  opacity: 0;
+  transform: scale(0.3);
+  transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.loadOrb.loadOrbVisible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.loadOrbInner {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 35%,
+    #ffcc55 0%, #f5a623 35%, #e07b10 65%, #c55c05 100%
+  );
+  box-shadow:
+    0 0 30px rgba(245,140,20,0.8),
+    0 0 60px rgba(245,120,10,0.4),
+    0 0 100px rgba(245,100,0,0.2);
+  animation: orbSpinGlow 2s ease-in-out infinite;
+}
+
+@keyframes orbSpinGlow {
+  0%, 100% { box-shadow: 0 0 30px rgba(245,140,20,0.8), 0 0 60px rgba(245,120,10,0.4); }
+  50% { box-shadow: 0 0 50px rgba(245,160,30,1), 0 0 100px rgba(245,130,10,0.6); }
+}
+
+.loadOrbHalo {
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245,166,35,0.2) 0%, transparent 70%);
+  filter: blur(10px);
+  animation: halopulse 2s ease-in-out infinite;
+}
+
+@keyframes halopulse {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.3); opacity: 1; }
+}
+
+/* ── TAGLINE ── */
+.tagline {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.02em;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1);
+  margin-bottom: 2.5rem;
+}
+
+.tagline.taglineVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── BAR ── */
+.barTrack {
+  width: 160px;
+  height: 2px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.bar {
+  height: 100%;
+  background: linear-gradient(90deg, #c55c05, #f5a623, #ffcc55);
+  border-radius: 99px;
+  transition: width 0.5s cubic-bezier(0.16,1,0.3,1);
+  box-shadow: 0 0 8px rgba(245,166,35,0.8);
+}
