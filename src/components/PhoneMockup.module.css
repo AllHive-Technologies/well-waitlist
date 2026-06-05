@@ -1,0 +1,970 @@
+/* ══════════════════════════════════════
+   PHONE DEVICE CHASSIS
+   ══════════════════════════════════════ */
+.phoneContainer {
+  position: relative;
+  width: 290px;
+  height: 590px;
+  margin: 0 auto;
+  user-select: none;
+}
+
+/* Side physical keys */
+.sideButton {
+  position: absolute;
+  background: #1c1c1e;
+  border-radius: 4px 0 0 4px;
+  z-index: 0;
+}
+.volumeUp {
+  width: 3px; height: 40px;
+  left: -3px; top: 120px;
+}
+.volumeDown {
+  width: 3px; height: 40px;
+  left: -3px; top: 175px;
+}
+.powerButton {
+  width: 3px; height: 60px;
+  right: -3px; top: 150px;
+  border-radius: 0 4px 4px 0;
+}
+
+.phoneChassis {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #252528;
+  border: 10px solid #141416;
+  border-radius: 42px;
+  box-shadow: 
+    0 25px 60px -15px rgba(0, 0, 0, 0.9), 
+    0 0 0 2px rgba(255, 255, 255, 0.05),
+    inset 0 0 4px rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.phoneScreen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  border-radius: 32px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Screen glare overlay */
+.screenGlare {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.07) 0%,
+    rgba(255, 255, 255, 0.03) 45%,
+    rgba(255, 255, 255, 0) 50%
+  );
+  pointer-events: none;
+  z-index: 20;
+}
+
+/* Dynamic Island */
+.dynamicIsland {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 85px;
+  height: 25px;
+  background: #000;
+  border-radius: 99px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 12px;
+  box-sizing: border-box;
+}
+
+.cameraDot {
+  width: 5.5px;
+  height: 5.5px;
+  border-radius: 50%;
+  background: #111122;
+  opacity: 0.8;
+}
+
+/* Status Bar */
+.statusBar {
+  height: 40px;
+  padding: 12px 22px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  z-index: 9;
+}
+
+.statusIcons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.batteryIcon {
+  display: flex;
+  align-items: center;
+}
+.batteryBody {
+  width: 17px;
+  height: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 2px;
+  padding: 1px;
+  box-sizing: border-box;
+}
+.batteryLevel {
+  height: 100%;
+  background: #fff;
+  border-radius: 1px;
+  transition: width 0.3s ease;
+}
+.batteryTip {
+  width: 1.5px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 0 1px 1px 0;
+}
+
+/* ── CONTAINER & SCREEN SLIDES ── */
+.screenContainer {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateY(12px) scale(0.97);
+  pointer-events: none;
+  transition: 
+    opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  padding: 0.85rem 0.85rem 4.5rem; /* Space at bottom for bottom nav */
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #0b0b0d;
+}
+
+.screenActive {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* Screen Dot Texture background matching Screenshot Grid */
+.dotBg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 15px 15px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.scrollArea {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 2px;
+  z-index: 1;
+}
+/* Hide scrollbars inside mockup screens */
+.scrollArea::-webkit-scrollbar {
+  display: none;
+}
+
+/* ══════════════════════════════════════
+   SCREEN 0: DASHBOARD / HOME (Screenshot 4)
+   ══════════════════════════════════════ */
+.dashboardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.75rem;
+  z-index: 2;
+}
+
+.logoGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.logoText {
+  font-weight: 900;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  color: #f5a623;
+}
+
+.userProfile {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.userText {
+  text-align: right;
+}
+.profileName {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #fff;
+}
+.profileEmail {
+  font-size: 0.52rem;
+  color: rgba(255, 255, 255, 0.35);
+}
+.profileAvatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #27272a;
+  border: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.6);
+  padding: 2px;
+}
+.profileAvatar svg {
+  width: 100%; height: 100%;
+}
+
+.activeStatusRow {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.25rem;
+}
+.pulseDotAmber {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #f5a623;
+  box-shadow: 0 0 6px #f5a623;
+  animation: pulseAmber 1.8s infinite;
+}
+@keyframes pulseAmber {
+  0% { box-shadow: 0 0 0 0 rgba(245, 166, 35, 0.7); }
+  70% { box-shadow: 0 0 0 6px rgba(245, 166, 35, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(245, 166, 35, 0); }
+}
+.pulseStatusLabel {
+  font-size: 0.58rem;
+  font-weight: 800;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.05em;
+}
+
+.configSummary {
+  margin-top: 0.6rem;
+  margin-bottom: 1rem;
+}
+.configTitle {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.3;
+}
+.configDetails {
+  font-size: 0.6rem;
+  color: rgba(255,255,255,0.45);
+  margin-top: 0.15rem;
+}
+
+/* Big countdown dial */
+.dashboardCountdownArea {
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem 0 1rem;
+}
+.dialOuter {
+  position: relative;
+  width: 155px;
+  height: 155px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 166, 35, 0.05) 0%, transparent 70%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dialRingGlow {
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(245, 166, 35, 0.45);
+  border-radius: 50%;
+  box-shadow: 
+    0 0 15px rgba(245, 166, 35, 0.2),
+    inset 0 0 10px rgba(245, 166, 35, 0.1);
+  pointer-events: none;
+}
+.dialInner {
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  background: #0d0d10;
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+.dialState {
+  font-size: 0.52rem;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.35);
+  font-weight: 750;
+}
+.dialTimer {
+  font-size: 1.35rem;
+  font-weight: 850;
+  color: #fff;
+  letter-spacing: 0.01em;
+  margin-top: 2px;
+}
+.dialUnits {
+  display: flex;
+  gap: 15px;
+  font-size: 0.48rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.3);
+  margin-top: -1px;
+  margin-bottom: 2px;
+}
+.dialFooter {
+  font-size: 0.52rem;
+  font-weight: 800;
+  color: #f5a623;
+  letter-spacing: 0.06em;
+}
+
+/* Verify now button */
+.verifyNowBtn {
+  width: 100%;
+  background: #fee2e2; /* Cream/light peach tint matching Save button */
+  background: #fef3c7; 
+  color: #141414;
+  border: none;
+  border-radius: 99px;
+  padding: 0.75rem 1rem;
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  box-shadow: 0 4px 14px rgba(245,166,35,0.12);
+  margin-bottom: 1rem;
+}
+
+.dashboardDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.dashboardPill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border: 1px solid rgba(245, 166, 35, 0.22);
+  background: rgba(245, 166, 35, 0.04);
+  border-radius: 99px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #f5a623;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.dashboardCard {
+  background: rgba(20,20,22,0.4);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 0.65rem 0.85rem;
+}
+.cardHeaderRow {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+.cardIcon {
+  font-size: 0.95rem;
+}
+.cardHeadings {
+  display: flex;
+  flex-direction: column;
+}
+.cardLabel {
+  font-size: 0.58rem;
+  color: rgba(255,255,255,0.4);
+  font-weight: 600;
+}
+.cardValue {
+  font-size: 0.72rem;
+  font-weight: 750;
+  color: #fff;
+  margin-top: 1px;
+}
+
+.escalationCard {
+  background: rgba(20,20,22,0.4);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 0.65rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  text-align: left;
+}
+.escalationTitle {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #fff;
+}
+.escalationRow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.escalationIconWrapper {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(245, 166, 35, 0.08);
+  border: 1px solid rgba(245, 166, 35, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  flex-shrink: 0;
+}
+.escalationTexts {
+  display: flex;
+  flex-direction: column;
+}
+.escalationHeader {
+  font-size: 0.62rem;
+  font-weight: 750;
+  color: #fff;
+}
+.escalationDesc {
+  font-size: 0.52rem;
+  color: rgba(255,255,255,0.35);
+  margin-top: 1px;
+  line-height: 1.3;
+}
+
+/* ══════════════════════════════════════
+   SETTINGS TEMPLATE & TABS (Screens 1, 2, 3)
+   ══════════════════════════════════════ */
+.settingsHeader {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0.75rem;
+  z-index: 2;
+}
+.settingsTitle {
+  font-weight: 850;
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  color: #f5a623;
+}
+.prefTitle {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #fff;
+  margin-top: 0.35rem;
+}
+.prefSub {
+  font-size: 0.58rem;
+  color: rgba(255,255,255,0.45);
+  margin-top: 1px;
+}
+
+/* Settings sub navigation tabs */
+.settingsTabsRow {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.85rem;
+  z-index: 2;
+}
+
+.settingsTab {
+  flex: 1;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 99px;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.5);
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.settingsTabActive {
+  background: transparent;
+  border-color: #f5a623;
+  color: #f5a623;
+}
+
+.settingsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+}
+
+.appSettingsBlock {
+  background: rgba(20,20,22,0.4);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  text-align: left;
+}
+
+.blockTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+.blockTitleIcon {
+  font-size: 0.78rem;
+  color: #f5a623;
+}
+.blockTitle {
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #f5a623;
+}
+
+.blockSubtext {
+  font-size: 0.56rem;
+  color: rgba(255,255,255,0.4);
+  margin-top: -0.35rem;
+  line-height: 1.3;
+}
+
+/* Grid of option buttons */
+.frequencyGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.45rem;
+}
+
+.gridBtn {
+  background: #17171a;
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 8px;
+  padding: 0.5rem 0.35rem;
+  font-size: 0.62rem;
+  font-weight: 750;
+  color: rgba(255,255,255,0.5);
+  text-align: center;
+}
+
+.gridBtnActive {
+  background: #f5a623;
+  border-color: #f5a623;
+  color: #141414;
+}
+
+.startTimeSelector {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #17171a;
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 8px;
+  padding: 0.5rem 0.65rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.5);
+}
+.timeIconLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.selectorIcon {
+  font-size: 0.72rem;
+}
+.chevronRight {
+  font-size: 0.65rem;
+  opacity: 0.5;
+}
+
+/* Cream action submit button */
+.saveSettingsBtn {
+  width: 100%;
+  background: #fef3c7;
+  color: #141414;
+  border: none;
+  border-radius: 99px;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.65rem;
+  font-weight: 850;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 14px rgba(245,166,35,0.1);
+  margin-top: 0.25rem;
+}
+
+/* ══════════════════════════════════════
+   SCREEN 2: GUARDIANS LIST (Screenshot 2)
+   ══════════════════════════════════════ */
+.guardianList {
+  display: flex;
+  flex-direction: column;
+}
+
+.guardianRow {
+  display: flex;
+  align-items: center;
+  background: #17171a;
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 10px;
+  padding: 0.6rem;
+  gap: 0.65rem;
+}
+
+.guardianBadge {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(245, 166, 35, 0.08);
+  border: 1px solid rgba(245, 166, 35, 0.25);
+  color: #f5a623;
+  font-weight: 750;
+  font-size: 0.68rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.guardianDetails {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.guardName {
+  font-size: 0.68rem;
+  font-weight: 750;
+  color: #fff;
+}
+.guardPhone {
+  font-size: 0.58rem;
+  color: rgba(255,255,255,0.35);
+  margin-top: 1px;
+}
+
+.deleteGuardBtn {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  color: #ef4444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* ══════════════════════════════════════
+   SCREEN 3: VERIFICATION METHOD (Screenshot 1)
+   ══════════════════════════════════════ */
+.methodsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.methodRow {
+  display: flex;
+  align-items: center;
+  background: #17171a;
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 10px;
+  padding: 0.65rem;
+  gap: 0.65rem;
+  transition: all 0.2s ease;
+}
+
+.methodRowSelected {
+  border-color: #f5a623;
+  background: rgba(245, 166, 35, 0.03);
+}
+
+.methodIconWrapper {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.5);
+  flex-shrink: 0;
+}
+.methodRowSelected .methodIconWrapper {
+  background: rgba(245, 166, 35, 0.08);
+  border-color: rgba(245, 166, 35, 0.2);
+  color: #f5a623;
+}
+
+.methodTexts {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.methodTitle {
+  font-size: 0.68rem;
+  font-weight: 750;
+  color: #fff;
+}
+.methodSub {
+  font-size: 0.5rem;
+  font-weight: 800;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.04em;
+  margin-top: 1.5px;
+}
+
+/* Radio button styles */
+.radioOutline {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.22);
+}
+.radioChecked {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid #f5a623;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.radioCheckedDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #f5a623;
+}
+
+/* ══════════════════════════════════════
+   BOTTOM NAVIGATION PILL
+   ══════════════════════════════════════ */
+.bottomNav {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 25px);
+  z-index: 10;
+}
+
+.bottomNavInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: rgba(20, 20, 22, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 99px;
+  padding: 0.45rem;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+}
+
+.bottomNavTab {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.35);
+  padding: 0.35rem 0.75rem;
+  width: 44px;
+  height: 30px;
+}
+
+.bottomNavTabActive {
+  color: #f5a623;
+}
+
+.bottomNavIcon {
+  width: 15px;
+  height: 15px;
+}
+
+.navIndicator {
+  position: absolute;
+  bottom: -3px;
+  width: 12px;
+  height: 2px;
+  background: #f5a623;
+  border-radius: 99px;
+}
+
+/* ══════════════════════════════════════
+   SCREEN 4: EMERGENCY ALERT (Lockscreen)
+   ══════════════════════════════════════ */
+.alertLockScreen {
+  background: radial-gradient(circle at 50% 30%, #501b10 0%, #150604 70%, #060201 100%) !important;
+  padding: 1.5rem 0.85rem !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.lockscreenTop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.25rem;
+  margin-bottom: auto;
+  gap: 0.25rem;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.lockIcon {
+  opacity: 0.85;
+}
+
+.lockTime {
+  font-size: 2.2rem;
+  font-weight: 300;
+  letter-spacing: -0.01em;
+}
+
+.lockDate {
+  font-size: 0.7rem;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+/* Apple style notification banner */
+.notificationBanner {
+  background: rgba(20, 10, 10, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 100, 80, 0.18);
+  border-radius: 16px;
+  padding: 0.85rem;
+  box-shadow: 
+    0 12px 30px rgba(0,0,0,0.5), 
+    0 0 15px rgba(255,80,50,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  animation: slideNotif 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform;
+}
+@keyframes slideNotif {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.notifHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.notifApp {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.notifTime {
+  text-transform: lowercase;
+}
+
+.notifTitle {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #ff6e5a;
+  letter-spacing: -0.01em;
+}
+
+.notifBody {
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.35;
+}
+
+.notifActions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.notifBtn, .notifBtnAccent {
+  flex: 1;
+  border: none;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.45rem;
+  border-radius: 8px;
+  text-align: center;
+}
+.notifBtn {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+.notifBtnAccent {
+  background: #ff6e5a;
+  color: #000;
+}
+
+/* ══════════════════════════════════════
+   iOS HOME INDICATOR BAR
+   ══════════════════════════════════════ */
+.homeIndicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 99px;
+  z-index: 10;
+}
+.alertLockScreen ~ .homeIndicator {
+  background: rgba(255, 255, 255, 0.65);
+}

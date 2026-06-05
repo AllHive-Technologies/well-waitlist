@@ -12,7 +12,6 @@ export default function Cursor() {
   const [hovering, setHovering] = useState(false)
 
   useEffect(() => {
-    const NUM_TRAILS = 8
     const trails = trailsRef.current
 
     const onMove = (e) => {
@@ -49,7 +48,6 @@ export default function Cursor() {
       // Animate trail
       trails.forEach((trail, i) => {
         if (!trail) return
-        const delay = (i + 1) * 0.06
         const tx = lerp(
           parseFloat(trail.dataset.x || posRef.current.x),
           posRef.current.x,
