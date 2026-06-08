@@ -232,7 +232,24 @@ export default function HomeView({ onNavigate, onOpenModal }) {
 
       {/* ── FOOTER ── */}
       <footer className={styles.footer}>
-        <p>© {new Date().getFullYear()} Well. All rights reserved.</p>
+        <div className={styles.footerBrand}>
+          <p className={styles.copyright}>© {new Date().getFullYear()} Well. All rights reserved.</p>
+          <p className={styles.companyInfo}>A product of Allhive (ALLhive Technology Limited)</p>
+        </div>
+        
+        <div className={styles.footerContact}>
+          <div className={styles.contactItem}>
+            <span className={styles.contactLabel}>Address:</span>
+            <span className={styles.contactValue}>Abel Abayomi, Langbasa, Harmony Estate, Ajah, Lagos</span>
+          </div>
+          <div className={styles.contactItem}>
+            <span className={styles.contactLabel}>Phone:</span>
+            <span className={styles.contactValue}>
+              <a href="tel:08156170216" className={styles.phoneLink}>08156170216</a>
+            </span>
+          </div>
+        </div>
+
         <div className={styles.footerLinks}>
           <button onClick={() => onOpenModal('privacy')} className={styles.footerBtn}>Privacy Policy</button>
           <button onClick={() => onOpenModal('terms')} className={styles.footerBtn}>Terms of Use</button>

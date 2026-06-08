@@ -100,7 +100,7 @@ export default function App() {
 
       <div className={`${styles.pageWrapper} ${pageVisible ? styles.pageVisible : ''}`}>
         {isWaitlist ? (
-          <WaitlistView onNavigate={handleNavigate} mousePos={mousePos} />
+          <WaitlistView onNavigate={handleNavigate} mousePos={mousePos} onOpenModal={setActiveModal} />
         ) : (
           <HomeView onNavigate={handleNavigate} onOpenModal={setActiveModal} />
         )}
